@@ -14,8 +14,9 @@
 	<body>
 		<div class="container">
 			<div class="header">
-				<nav class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom"></nav>
-					<a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+				<nav
+					class="border-bottom flex-wrap mb-4 py-3 d-flex justify-content-center">
+					<a href="/" class="text-dark text-decoration-none mb-3 mb-md-0 d-flex align-items-center me-md-auto">
 						<span class="fs-4">Mr Daet Fan Page</span>
 					</a>
 					<ul class="nav nav-pills">
@@ -23,7 +24,9 @@
 							<a href="/" class="nav-link">Home</a>
 						</li>
 						<li class="nav-item">
-							<a href="/signup" class="nav-link active" aria-current="page">Signup</a>
+							<a href="/signup" class="nav-link active" aria-current="page"
+								>Signup</a
+							>
 						</li>
 						<li class="nav-item">
 							<a href="/signin" class="nav-link">Sign In</a>
@@ -49,20 +52,5 @@
 				<p>&copy; I love Mr Daet 2026</p>
 			</footer>
 		</div>
-		<!--script>
-            document.querySelector('#form-signin').addEventListener("submit", async function (e) {
-                e.preventDefault()
-                console.log(new URLSearchParams(new FormData(e.target)).toString())
-                const res = await fetch("/api/signup", {
-                    body: new URLSearchParams(new FormData(e.target)).toString(),
-                    method: "POST",
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                    }
-                })
-                console.log(await res.json())
-            });
-		</script-->
 	</body>
-
 </html>
