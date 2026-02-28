@@ -11,7 +11,7 @@ app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 app.secret_key = 'why would I tell you my secret key?'
 
 mysql = MySQL(app)
-@app.route('/api/signup',methods=['POST'])
+@app.route('/signup',methods=['POST'])
 def post_signup():
     # read ui values from form
     _name = request.form['inputName']
@@ -49,7 +49,7 @@ def signup():
 def showSignin():
     return render_template('signin.html')
 
-@app.route('/api/validateLogin', methods=['POST'])
+@app.route('/validateLogin', methods=['POST'])
 def validateLogin():
     try:
         _username = request.form['inputEmail']
