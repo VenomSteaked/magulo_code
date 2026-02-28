@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, session, redirect
 from flaskext.mysql import MySQL
 from werkzeug.security import generate_password_hash, check_password_hash
+import re 
 
 app = Flask(__name__)
 app.config['MYSQL_DATABASE_USER'] = 'root'
@@ -18,17 +19,35 @@ def post_signup():
     _email = request.form['inputEmail']
     _password = request.form['inputPassword']
     # validate the received values
+    fail = False
     if _name and _email and _password:
         print("all fields good")
     else:
-        return render_template('error.html', error='Fields empty!', page="/signup", msg="Try again")
+        error='Fields empty!'
+        msg="Try again"
+        page="/signup"
+        fail = True
     if len(_name) > 45:
-        return render_template('error.html', error='Name too long! Max 45 characters', page="/signup", msg="Try again")
+        error='Name too long! Max 45 characters'
+        msg="Try again"
+        page="/signup"
+        fail = True
     elif len(_email) > 45:
-        return render_template('error.html', error='Email address too long! Max 45 characters', page="/signup", msg="Try again")
+        error='Email address too long! Max 45 characters'
+        msg="Try again"
+        page="/signup"
+        fail = True
     check = "@" in _email
     if check == False:
-        return render_template('error.html', error='Invalid email format!', page="/signup", msg="Try again")
+        error='Invalid email format!'
+        msg="Try again"
+        page="/signup"
+        fail = True
+    if fail == True:
+        return render_template('error.html', error=error, msg=msg, page=page)
+    check = "lancesdaet@xs.edu.ph" in _email
+    if check == True: 
+        return render_template('daet.html')
     # MySQL configurations 
     conn = mysql.connect()
     cursor = conn.cursor()
@@ -83,6 +102,6 @@ def logout():
 def main():
     return render_template('index.html')
 if __name__ == "__main__":
-        app.run()
+        app.run(debug=True)
 
  	
