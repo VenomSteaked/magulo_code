@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request, session, redirect, url_for
 from flaskext.mysql import MySQL
 from werkzeug.security import generate_password_hash, check_password_hash
-import re 
 
 app = Flask(__name__)
 app.config['MYSQL_DATABASE_USER'] = 'root'
@@ -19,42 +18,38 @@ def post_signup():
     _email = request.form['inputEmail']
     _password = request.form['inputPassword']
     # validate the received values
+    error = ""
     fail = False
     if _name and _email and _password:
-        print("all fields good")
+        pass
     else:
-        error='Fields empty!'
+        error= error +  " " + 'Fields empty!'
         msg="Try again"
         page="/signup"
         fail = True
     if len(_name) > 45:
-        error='Name too long! Max 45 characters'
+        error= error +  " " + 'Name too long! Max 45 characters'
         msg="Try again"
         page="/signup"
         fail = True
     elif len(_email) > 45:
-        error='Email address too long! Max 45 characters'
+        error= error +  " " + 'Email address too long! Max 45 characters'
         msg="Try again"
         page="/signup"
         fail = True
-    check = "@" in _email
-    if check == False:
-        error='Invalid email format!'
+    if "@" not in _email:
+        error= error + " " + 'Invalid email format!'
         msg="Try again"
         page="/signup"
         fail = True
     if fail == True:
         return render_template('error.html', error=error, msg=msg, page=page)
-    check = "lancesdaet@xs.edu.ph" in _email
-    if check == True: 
-        return render_template('daet.html')
     # MySQL configurations 
     conn = mysql.connect()
     cursor = conn.cursor()
     _hashed_password = generate_password_hash(_password)
     cursor.callproc('sp_makeUser',(_name,_email,_hashed_password))
     data = cursor.fetchall()
-    print('debug stuff',data)
     if len(data) == 0:
         conn.commit()
         return render_template('success.html', success='User created successfully!', page="/signin", msg='Sign in')
@@ -92,6 +87,7 @@ def userHome():
         return render_template('userhome.html')
     else: 
         return render_template('error.html',error = 'Unauthorized Access', page="/", msg="Go home")
+
 
 @app.route('/logout')
 def logout():

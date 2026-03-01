@@ -1,5 +1,4 @@
-word = "Hello"
-result = word + word
-print(result)
-for i in range(5, 10):
-     print(i)
+print("What's your email")
+email = input()
+if "@" not in email:
+     print("there is no @")
