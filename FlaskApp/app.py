@@ -32,12 +32,12 @@ def post_signup():
         page="/signup"
         fail = True
     if len(_name) > 45:
-        error= error +  " " + 'Name too long! Max 45 characters'
+        error= error +  " " + 'Name too long! Max 45 characters.'
         msg="Try again"
         page="/signup"
         fail = True
-    elif len(_email) > 45:
-        error= error +  " " + 'Email address too long! Max 45 characters'
+    if len(_email) > 45:
+        error= error +  " " + 'Email address too long! Max 45 characters.'
         msg="Try again"
         page="/signup"
         fail = True
